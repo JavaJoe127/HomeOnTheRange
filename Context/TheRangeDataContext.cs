@@ -5,8 +5,6 @@ namespace HomeOnTheRange.Models
 {
     public class TheRangeDataContext : DbContext
     {
-        public DbSet<Inventory> Inventory { get; set; }
-
         public TheRangeDataContext()
         {
             // display SQL to Output window

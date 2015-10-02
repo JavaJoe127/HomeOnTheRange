@@ -1,20 +1,24 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web.Mvc;
-using HomeOnTheRange.Models;
-
-namespace HomeOnTheRange.Controllers
+﻿namespace HomeOnTheRange.Controllers
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
+    using Models;
+    using Repositories;
+
     public class InventoryController : Controller
     {
-        private TheRangeDataContext db = new TheRangeDataContext();
+        InventoryRepository repository = new InventoryRepository();
 
         // GET: Inventory
         public ActionResult Index()
         {
-            return View(db.Inventory.ToList());
+
+
+            return View(repository.GetAll());
         }
 
         // GET: Inventory/Details/5
@@ -24,11 +28,13 @@ namespace HomeOnTheRange.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = db.Inventory.Find(id);
+
+            Inventory inventory = repository.Get(id.Value);
             if (inventory == null)
             {
                 return HttpNotFound();
             }
+
             return View(inventory);
         }
 
@@ -45,15 +51,15 @@ namespace HomeOnTheRange.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Product,PurchaseDate,Quantity,Price,Type,Description")] Inventory inventory)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                inventory.ID = Guid.NewGuid();
-                db.Inventory.Add(inventory);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(inventory);
             }
 
-            return View(inventory);
+            inventory.ID = Guid.NewGuid();
+            repository.Add(inventory);
+            repository.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Inventory/Edit/5
@@ -63,7 +69,8 @@ namespace HomeOnTheRange.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = db.Inventory.Find(id);
+
+            Inventory inventory = repository.Get(id.Value);
             if (inventory == null)
             {
                 return HttpNotFound();
@@ -80,11 +87,11 @@ namespace HomeOnTheRange.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(inventory).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(inventory);
             }
-            return View(inventory);
+
+            repository.Save(inventory);
+            return RedirectToAction("Index");
         }
 
         // GET: Inventory/Delete/5
@@ -94,11 +101,13 @@ namespace HomeOnTheRange.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = db.Inventory.Find(id);
+
+            Inventory inventory = repository.Get(id.Value);
             if (inventory == null)
             {
                 return HttpNotFound();
             }
+
             return View(inventory);
         }
 
@@ -107,9 +116,9 @@ namespace HomeOnTheRange.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Inventory inventory = db.Inventory.Find(id);
-            db.Inventory.Remove(inventory);
-            db.SaveChanges();
+            Inventory inventory = repository.Get(id);
+            repository.Remove(inventory);
+            repository.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -117,8 +126,9 @@ namespace HomeOnTheRange.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repository.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
