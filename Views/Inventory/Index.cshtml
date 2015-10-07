@@ -15,7 +15,13 @@
             @Html.DisplayNameFor(model => model.Product)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.BrandName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpirationDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
@@ -25,6 +31,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Property)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -38,7 +47,13 @@
             @Html.DisplayFor(modelItem => item.Product)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.BrandName)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.PurchaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpirationDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Quantity)
@@ -48,6 +63,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Property)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
