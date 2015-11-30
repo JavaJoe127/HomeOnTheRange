@@ -25,9 +25,9 @@ namespace HomeOnTheRange.Repositories
         /// The type.
         /// </param>
         /// <returns>
-        /// The <see cref="Inventory"/>.
+        /// The <see cref="InventoryModels"/>.
         /// </returns>
-        List<Inventory> GetByType(string type);
+        List<InventoryModels> GetByType(string type);
 
         /// <summary>
         /// The Get By Property.
@@ -36,9 +36,9 @@ namespace HomeOnTheRange.Repositories
         /// The property.
         /// </param>
         /// <returns>
-        /// The <see cref="Inventory"/>.
+        /// The <see cref="InventoryModels"/>.
         /// </returns>
-        List<Inventory> GetByProperty(string property);
+        List<InventoryModels> GetByProperty(string property);
 
         /// <summary>
         /// The Save.

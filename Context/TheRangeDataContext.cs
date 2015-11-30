@@ -23,7 +23,7 @@ namespace HomeOnTheRange.Models
         /// <returns>
         /// The <see cref="Inventory"/>.
         /// </returns>
-        public DbSet<Inventory> Inventory { get; set; }
+        public DbSet<InventoryModels> Inventory { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TheRangeDataContext"/> class.

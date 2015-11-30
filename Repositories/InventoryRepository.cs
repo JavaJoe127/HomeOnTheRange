@@ -18,16 +18,16 @@ namespace HomeOnTheRange.Repositories
     /// <summary>
     /// The Inventory Repository.
     /// </summary>
-    public class InventoryRepository : Repository<Inventory>
+    public class InventoryRepository : Repository<InventoryModels>
     {
         /// <inheritdoc />
-        public List<Inventory> GetByType(string type)
+        public List<InventoryModels> GetByType(string type)
         {
             return DbSet.Where(a => a.Type.Contains(type)).ToList();
         }
 
         /// <inheritdoc />
-        public List<Inventory> GetByProperty(string property)
+        public List<InventoryModels> GetByProperty(string property)
         {
             return DbSet.Where(a => a.Property.Contains(property)).ToList();
         }

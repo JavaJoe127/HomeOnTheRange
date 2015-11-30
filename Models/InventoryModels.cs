@@ -15,7 +15,7 @@ namespace HomeOnTheRange.Models
     /// <summary>
     /// The Inventory.
     /// </summary>
-    public class Inventory
+    public class InventoryModels
     {
         /// <summary>
         /// Gets or sets Id.

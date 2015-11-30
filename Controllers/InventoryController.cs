@@ -25,9 +25,25 @@ namespace HomeOnTheRange.Controllers
         /// The repository data context for inventory.
         /// </summary>
         /// <returns>
-        /// The <see cref="Inventory"/>.
+        /// The <see cref="InventoryModels"/>.
         /// </returns>
         InventoryRepository repository = new InventoryRepository();
+
+        /// <summary>
+        /// The inventory controller constructor
+        /// </summary>
+        public InventoryController() : this(new InventoryRepository()) { }
+
+        /// <summary>
+        /// The inventory controller constructor
+        /// </summary>
+        /// <param name="repository">
+        /// The repository
+        /// </param>
+        public InventoryController(InventoryRepository repository)
+        {
+            this.repository = repository;
+        }
 
         /// <summary>
         /// The Index.
@@ -52,7 +68,7 @@ namespace HomeOnTheRange.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Inventory inventory = repository.Get(id.Value);
+            InventoryModels inventory = repository.Get(id.Value);
             if (inventory == null)
             {
                 return HttpNotFound();
@@ -78,7 +94,7 @@ namespace HomeOnTheRange.Controllers
         /// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Product,BrandName,PurchaseDate,ExpirationDate,Quantity,Price,Type,Property,Description")] Inventory inventory)
+        public ActionResult Create([Bind(Include = "ID,Product,BrandName,PurchaseDate,ExpirationDate,Quantity,Price,Type,Property,Description")] InventoryModels inventory)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +121,7 @@ namespace HomeOnTheRange.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Inventory inventory = repository.Get(id.Value);
+            InventoryModels inventory = repository.Get(id.Value);
             if (inventory == null)
             {
                 return HttpNotFound();
@@ -124,7 +140,7 @@ namespace HomeOnTheRange.Controllers
         /// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Product,BrandName,PurchaseDate,ExpirationDate,Quantity,Price,Type,Property,Description")] Inventory inventory)
+        public ActionResult Edit([Bind(Include = "ID,Product,BrandName,PurchaseDate,ExpirationDate,Quantity,Price,Type,Property,Description")] InventoryModels inventory)
         {
             if (!ModelState.IsValid)
             {
@@ -149,7 +165,7 @@ namespace HomeOnTheRange.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Inventory inventory = repository.Get(id.Value);
+            InventoryModels inventory = repository.Get(id.Value);
             if (inventory == null)
             {
                 return HttpNotFound();
@@ -169,7 +185,7 @@ namespace HomeOnTheRange.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Inventory inventory = repository.Get(id);
+            InventoryModels inventory = repository.Get(id);
             repository.Remove(inventory);
             repository.SaveChanges();
             return RedirectToAction("Index");
